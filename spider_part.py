@@ -9,32 +9,25 @@ url_initial = "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1
 
 def find_everything(word):
 
+    result = ''
     word = str(word)
     url = url_initial + word
     
     re = requests.get(url, headers=header)
     info = BeautifulSoup(re.text,"html.parser")
 
-    definition_CH = info.find("div",attrs={'class':'def ddef_d db'}).text
+    headline_exp = info.find_all("h3",attrs={'class':'dsense_h'})
 
-    return definition_CH
+    example = info.find_all('div',attrs={'class':'def-body ddef_b'})
+
+    definition_en = info.find_all("div",attrs={'class':'def ddef_d db'})
+
+    l = len(headline_exp) - 1
+
+    for i in range(0, l):
+        result = result + '\n' + str(headline_exp[i].text)+'\n'+str(definition_en[i].text) + '\n'+ str(example[i].text)
+
+    return result
 
 
-    # 找到英语解释
-    #definition_en = info.find_all("div",attrs={'class':'def ddef_d db'})
-
-    # 找到例句和翻译
-    #example = info.find_all("div",attrs={'class':'examp dexamp'})
-
-
-    #print(definition_CH[0].get('content'))
-
-    #for c in definition_en:
-    #    print(c.text)
-        
-    #for b in example:
-     #   print(b.text)
-    
-    #print('\n')
-
-                                                                                                                                                                          
+                                                                                                                                         
