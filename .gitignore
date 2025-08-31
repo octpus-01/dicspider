@@ -1,3 +1,4 @@
 data.txt
-__pycache__/save.cpython-312.pyc
-__pycache__/spider_part.cpython-312.pyc
+__pycache__/*
+
+
